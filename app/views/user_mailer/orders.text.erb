@@ -1,0 +1,16 @@
+Hola <%= @client.name %>
+
+Gracias por adquirir nuestros servicios, trabajamos para usted.
+
+A continuación encontrará la factura de los servicios que pidió.
+
+Número de orden: <%= @order.id %>
+Precio total de los servicios: <%= number_to_currency(@order.total_price) %>
+
+<% @order.services.each do |service| %>
+  Fecha del servicio: <%= service.date %>
+  Precio: <%= number_to_currency(service.price) %>
+  Direccion: <%= service.address.body %>
+<% end %>
+
+Por favor envie el recibo de pago y el número de la orden al correo: example-admin-1@email.com

@@ -1,0 +1,15 @@
+<% provide(:title, "Ordenar servicios") %>
+<% provide(:title_header, "Ordenar servicios") %>
+
+<%= render 'shared/header_dinamic' %><br>
+
+<section class="section">                                                       
+  <div class="container">                                                       
+    <div class="columns is-centered">                                           
+      <div class="column is-4">
+        <%= render 'form', service: @service %>
+        <%= link_to 'Regresar', new_order_path, class: "button" %>
+      </div>
+    </div>
+  </div>
+</section>

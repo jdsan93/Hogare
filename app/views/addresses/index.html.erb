@@ -1,0 +1,50 @@
+<% provide(:title, "Direcciones") %>
+<% provide(:title_header, "Mis direcciones") %>
+<%= render 'shared/header_dinamic' %>
+
+<div class="section">                                                           
+  <div class="container" align="center">                                        
+    <div class="columns is-centered">                                           
+      <div class="column is-4">
+
+        <div style="width:500px"><%= paginate @addresses %></div>            
+
+        <table class="table is-narrow is-hoverable -row-hover-background-color primary">
+          <thead>
+            <tr>
+              <th>Direccion</th>
+              <% unless current_user.user_type == "client" %>
+                <th>User</th>
+              <% end %>
+              <th colspan="3"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @addresses.each do |address| %>
+              <tr>
+                <td><%= address.body %></td>
+                <% unless current_user.user_type == "client" %>
+                  <td><%= address.client.name %></td>
+                <% end %>
+                <td><%= link_to 'Editar', edit_address_path(address), class: "button is-small" %></td>
+                <td><%= link_to 'Borrar', address, method: :delete, data: { confirm: 'Desea borrar esta direccion?' }, class: "button is-small" %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      
+
+        <br>
+        <% unless current_user.admin? %>
+          <%= link_to 'Crear direccion', new_address_path, class: "button is-info" %>
+        <% end %>
+
+      <br>
+      <br>
+       <%= link_to 'Regresar', root_path, class:"button"%>
+
+      </div>
+    </div>
+  </div>
+</div>

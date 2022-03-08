@@ -1,0 +1,71 @@
+<% provide(:title, "Editar usuario") %>
+<% provide(:title_header, "Editar usuario") %>
+
+<%= render 'shared/header_dinamic' %>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-4">
+
+        <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+          <%= f.error_notification %>
+
+          <div class="field">
+            <div class="control">
+              <%= f.input :email, 
+                          required: true, 
+                          input_html: { class: "input"}, 
+                          wrapper: false, 
+                          label_html: { class: "label" } %>
+            </div>
+          </div>
+
+          <div class="field">
+            <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+              <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+            <% end %>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <%= f.input :password,
+                          :label => "Nueva contraseña",
+                          autocomplete: "off", 
+                          hint: "Dejar en blanco si no desea cambiar su contraseña", 
+                          required: false, 
+                          input_html: { class: "input"}, wrapper: false, label_html: { class: "label" } %>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <%= f.input :password_confirmation, 
+                          required: false,
+                          :label => "Confirmar nueva contraseña",
+                          input_html: { class: "input"}, 
+                          wrapper: false, label_html: { class: "label" } %>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <%= f.input :current_password, 
+                          hint: "Escriba contraseña actual para guardar los cambios", 
+                          required: true, input_html: { class: "input"}, 
+                          wrapper: false, label_html: { class: "label" } %>
+            </div>
+        </div>
+
+        <%= f.button :submit, "Actualizar", class:"button is-info" %>
+
+        <% end %>
+
+        <hr />
+        <h3 class="title is-5">Cancel my account</h3>
+        <p>Inconforme? <%= link_to "Cancelar mi cuenta", registration_path(resource_name), data: { confirm: "Esta seguro?" }, method: :delete %></p>
+
+      </div>
+    </div>
+  </div>
+</section>

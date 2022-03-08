@@ -1,0 +1,20 @@
+<% provide(:title, "Nueva orden") %>
+<% provide(:title_header, "Nueva orden") %>
+
+<%= render 'shared/header_dinamic' %><br>
+<div class="section">                                                           
+  <div class="container" align="left">                                        
+    <div class="columns is-centered">                                           
+      
+        <%= form_tag(orders_path, method: :post) do %>
+          <div>Ingresar fechas: <input  type="text" id="multidatespicker" name="dates"></input></div> 
+          <%= hidden_field_tag :order_id, @order_id %>
+          <br>
+          <div align="center"> <%= submit_tag ("Crear Servicios"), class: 'button is-info'%></div>
+        <% end %>
+    </div>
+      <br>
+      <br>
+      <div class="columns is-centered"><%= link_to "Rgresar", root_path, class: "button "%></div>
+  </div>
+</div>

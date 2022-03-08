@@ -1,0 +1,64 @@
+<% provide(:title, "Mi orden") %>
+<% provide(:title_header, "Mis servicios solicitados") %>
+
+<%= render 'shared/header_dinamic' %>
+
+<div class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <article class="message">
+          <div class="message-header">
+            <p>Número de orden <strong><%= @order.id%><strong> </p>
+          </div>
+
+          <div class="message-body">
+            <div><p>Precio total de los servicios:  <%= number_to_currency(@order.total_price)%></p></div> 
+            <div><p>Estado de orden: <%= @order.order_status %></p></div>
+             <br>
+             <br>             
+            <div class="columns is-centered">
+              <table class="table is-narrow is-hoverable -row-hover-background-color primary">
+               <thead>
+                 <tr>
+                   <th>Fecha</th>
+                   <th>Estado</th>
+                   <th>Precio</th>
+                   <th>Dirección</th>
+                   <% if current_user.admin? %>
+                   <th>Acciones</th>
+                   <% end %>
+                 </tr>
+               </thead>
+
+                <tbody>
+                  <% @order.services.each do |service| %>
+                    <tr>
+                      <td><%= service.date %></td>
+                      <td><%= service.status %></td>
+                      <td><%= number_to_currency(service.price) %></td>
+                      <% if service.address.nil?%>
+                        <td>por asignar</td>
+                      <%else%>
+                        <td><%= service.address.body %></td>
+                      <%end%>
+                      <% if current_user.admin? %>
+                        <% if service.pendiente? || service.asignado? %>
+                          <td><%= link_to 'Cancelar', cancel_service_cancel_path(service), 
+                                  data: { confirm: 'Seguro desea cancelar este servicio?' }, class: "button is-small" %></td>
+                        <% end %>
+                          <td><%= link_to 'Asignar', edit_service_path(service), class: "button is-small" %></td>
+                      <% end %>                 
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </article>
+
+        <%= link_to 'Back', orders_path, class: "button"  %>
+      </div>
+    </div>
+  </div>
+</div>

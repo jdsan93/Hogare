@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= 	full_title(yield(:title)) %></title>
+    <%= csrf_meta_tags %>                                                           
+    <%= csp_meta_tag %>                                                             
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body class="<%= yield(:body_class) %>">
+    <%= render 'layouts/header' %>
+    <%= yield(:header) %>
+    <% unless current_page?(root_path) %>
+      <div class="container">
+        <%= yield %>
+      </div>
+    <% else %>
+      <%= yield %>
+    <% end %>
+  </body>
+</html>

@@ -1,0 +1,41 @@
+<% provide(:title, "Registrar usuario") %>
+<% provide(:title_header, "Registrar usuario") %>
+
+<% render 'shared/header_dinamic' %>
+
+<div class="section">                                                           
+  <div class="container" align="center">                                        
+    <div class="columns is-centered">                                           
+      <div class="column is-4"> 
+        <%= form_for(@the_user, url: the_users_path) do |f| %>
+          <%= render "devise/shared/error_messages", resource: @the_user %>
+
+          <div class="field">
+            <%= f.label :email %><br />
+            <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :password %>
+            <%= f.password_field :password, autocomplete: "new-password" %>
+          </div>
+ 
+          <div class="field">
+            <%= f.label :password_confirmation %>
+            <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :user_type %>
+            <%= f.select :user_type, [ 0, 1, 2 ] %>
+          </div>
+
+          <div class="actions">
+            <%= f.submit "Registrar usuario", class: "button is-info is-medium" %>
+          </div>
+
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

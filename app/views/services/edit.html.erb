@@ -1,0 +1,58 @@
+<% provide(:title, "Edicion de servicio") %>
+<% provide(:title_header, "Edicion de servicio") %>
+
+<%= render 'shared/header_dinamic' %>
+
+<div class="section">                                                           
+  <div class="container" align="center">                                        
+    <div class="columns is-centered">                                           
+      <div class="column is-6"> 
+        <%= form_for(@service) do |f| %>   
+          <table>
+          <thead></thead>
+          <tbody>
+          
+          <tr><td> Estado:</td> <td> <%= @service.status %> </td></tr>
+          <tr><td> Fecha de servicio: </td>
+            <td> <div class="field">
+                <div class="control">
+                  <%= f.text_field :date,
+                  type: :date, 
+                              required: true, 
+                              input_html: { class: "input"}, 
+                              wrapper: false, 
+                              label_html: { class: "label" } %>
+                </div>
+              </div>
+            </td>
+          </tr>
+          </div>
+          <tr> <td>Cliente: </td><td> <%= @service.client.name %> </td></tr>
+          <tr> <td>Telefono: </td><td> <%= @service.client.phone %> </td></tr>
+          <tr> <td>Dirección: </td><td> <%= @service.address.body %> </td></tr>
+          <tr> <td>Profesional de limpieza</td>
+          <% if @service.cleaner.nil? %>
+            <td><%= select_tag :cleaner_id ,options_for_select(@cleaners.each{|k,v| [k,v]}), prompt: "seleccione profesional"%></td>
+          <%else%>
+            <td><%= select_tag :cleaner_id ,options_for_select(@cleaners.each{|k,v| [k,v]}), prompt: @service.cleaner.name %></td>
+          <%end%>
+          </tr>
+         <tbody>
+        </table>
+        <br>
+          <div class="actions">
+            <%= f.submit "Asignar", class:"button is-info" %>
+          </div>
+        <% end %>
+        <br>
+        <%= link_to 'Regresar', :back, class: "button" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+

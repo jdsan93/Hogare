@@ -1,0 +1,25 @@
+<% provide(:title, "Editar usuario") %>
+<% provide(:title_header, "Editar usuario") %>
+
+<%= render 'shared/header_dinamic' %>
+
+<div class="section">                                                           
+  <div class="container" align="center">                                        
+    <div class="columns is-centered">                                           
+      <div class="column is-4"> 
+        <%= form_for(@the_user, url: the_user_path(@the_user)) do |f| %>
+  
+          <div class="field">
+            <%= f.label :user_type %>
+            <%= f.select :user_type, [0,1,2] %>
+          </div>
+
+          <div class="actions">
+            <%= f.submit "Actualizar usuario" %>
+          </div>
+
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

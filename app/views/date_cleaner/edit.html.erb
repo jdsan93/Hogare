@@ -1,0 +1,29 @@
+<% provide(:title, "Asignar fechas") %>
+<% provide(:title_header, "Asignar fechas") %>
+
+<%= render 'shared/header_dinamic' %>
+
+<div class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-4">
+        <%= form_for(@cleaner, url: date_cleaner_path(@cleaner)) do |f| %>
+          
+        <div class="field">
+          <%= f.label :start_date %>
+          <%= f.date_field :start_date, min: Date.today %>
+        </div>
+
+        <div class="field">
+          <%= f.label :end_date %>
+          <%= f.date_field :end_date, min: Date.tomorrow + 30.days %>
+        </div>
+
+        <div class="actions">
+          <%= f.submit "Asignar fechas" %>
+        </div>
+
+      <% end %>
+    </div>
+  </div>
+</div>

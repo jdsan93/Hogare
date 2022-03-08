@@ -1,0 +1,37 @@
+<% provide(:title_header, 'Bienvenido a Hogare!') %>
+
+<% if user_signed_in? %>
+  <%= render 'shared/header_dinamic' %><br>
+  <div align="center">
+    <% if current_user.client? %>
+      <%= link_to "Actualizar información", edit_client_path(Client.find_by(user_id: current_user.id)), class: "button is-info is-rounded" %>
+      <%= link_to "Mis direcciones", addresses_path, class: "button is-info is-rounded" %>
+      <%= link_to "Ordenar servicio de limpieza", new_order_path, class: "button is-info is-rounded" %>
+      <%= link_to "Mis Ordenes", orders_path , class: "button is-info is-rounded" %>
+      <%= link_to "Servicios", services_path, class: "button is-info is-rounded" %>
+    <% elsif current_user.cleaner? %>
+      <%= link_to "Actualizar información", edit_cleaner_path(Cleaner.find_by(user_id: current_user.id)), class: "button is-info is-rounded" %>
+      <%= link_to "Servicios", services_path , class: "button is-info is-rounded" %>
+    <% elsif current_user.admin? %>
+      <%= link_to "Actualizar información", edit_admin_path(Admin.find_by(user_id: current_user.id)), class: "button is-info is-rounded" %>
+      <%= link_to "Usuarios", the_users_path , class: "button is-info is-rounded" %>
+      <%= link_to "Ordenes", orders_path , class: "button is-info is-rounded" %>
+      <%= link_to "Servicios", services_path , class: "button is-info is-rounded" %>
+    <% end %>
+  </div>
+<% else %>
+
+
+  <section class="hero is-info is-fullheight">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          Bienvenido a Hogare
+        </h1>
+        <h4 class="subtitle">
+          <%= render 'layouts/flash' %><br>
+        </h4> 
+      </div> 
+    </div>
+  </section>
+<% end %>

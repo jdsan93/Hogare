@@ -1,0 +1,49 @@
+<h1>Hogare</h1>
+
+<p>Hola <%= @client.name %>,</p>
+
+<p>
+  Gracias por adquirir nuestros servicios, trabajamos para usted.
+</p>
+
+<p>
+  A continuación encontrará la factura de los servicios que pidió.
+</p>
+
+<div>                                          
+  <p>Número de orden <strong><%= @order.id%><strong> </p>             
+</div>
+
+<div>                                            
+  <div>
+    <p>Precio total de los servicios:  <%= number_to_currency(@order.total_price)%></p>
+  </div>
+  <br>
+  <br>
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Precio</th>
+          <th>Dirección</th>
+        </tr>
+      </thead>
+
+      <tbody> 
+        <% @order.services.each do |service| %>
+          <tr>
+            <td><%= service.date %></td>
+            <td><%= number_to_currency(service.price) %></td>
+            <td><%= service.address.body %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<br>
+<p>Por favor envie el recibo de pago y el número de la orden al correo: example-admin-1@email.com</p>
+<br>
+
+

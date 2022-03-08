@@ -1,0 +1,36 @@
+<div style="width:500px"><%= paginate @services %></div>            
+ <br> 
+ 
+ <table class="table is-narrow is-hoverable -row-hover-background-color primary">
+   <thead>
+     <tr>
+      <th>Fecha de servicio</th>
+      <th>Direccion</th>
+      <th>Estado</th>
+      <th>Trabajadora</th>
+      <th>Accion</th>
+     </tr>
+   </thead>
+
+  <tbody>
+    <% @services.each do |service| %>
+      <tr>
+        <td><%= service.date %></td>
+        <td><%= service.address.body %></td>
+        <td><%= service.status %></td>
+        <td><% if service.cleaner.nil?%>
+            Por asignar 
+          <% else %>
+            <%= service.cleaner.name %>
+          <% end %>
+        </td>
+        <td>
+          <% if service.status == "pendiente" || service.status == "asignado" %>
+            <%= link_to 'Cancelar', cancel_service_cancel_path(service), 
+            data: { confirm: 'Seguro desea cancelar este servicio?' }, class: "button is-small" %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

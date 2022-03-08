@@ -1,0 +1,52 @@
+<div style="width:500px"><%= paginate @services %></div>            
+ <br> 
+ 
+ <table class="table is-narrow is-hoverable -row-hover-background-color primary">
+   <thead>
+     <tr>
+      <th>Fecha del servicio</th>
+      <th>Cliente</th>
+      <th>Email</th>
+      <th>Telefono</th>
+      <th>Direccion</th>
+      <th>Estado</th>
+      <th>Trabajadora</th>
+      <th>Accion</th>
+     </tr>
+   </thead>
+
+  <tbody>
+    <% @services.each do |service| %>
+      <tr>
+        <td><%= service.date %></td>
+        <% if service.client.nil?%> 
+          <td>eliminado</td>
+          <td>eliminado</td>
+          <td>eliminado</td>
+        <%else%>
+          <td><%= service.client.name %></td>
+          <td><%= service.client.user.email %></td>
+          <td><%= service.client.phone %></td>
+        <%end%>
+        <td><%= service.address.body %></td>
+        <td><%= service.status %></td>
+        <% if service.cleaner.nil? && service.status == "pendiente" %>
+          <td>por asignar</td>
+        <% elsif service.cleaner.nil? && service.status == "cancelado" %>
+         <td></td>
+        <% else %>
+         <td><%= service.cleaner.name %></td>
+        <%end%>
+          <td><% if service.asignado? || service.pendiente?  %>
+            <%= link_to 'Asignar', edit_service_path(service), class: "button is-small" %>
+            <%if service.order.pagado?%>
+              <%= link_to 'Cancelar', cancel_service_cancel_path(service), 
+                  data: { confirm: 'Seguro desea cancelar este servicio?' }, class: "button is-small" %>
+            <% end %>
+          <% end %>
+          </td>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

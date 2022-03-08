@@ -1,0 +1,33 @@
+<% provide(:title, "Servicios") %>
+<% provide(:title_header, "Servicios") %>
+
+<%= render 'shared/header_dinamic' %>
+
+<div class="hero-body">                                                         
+  <div class="container" align="center">                                        
+    <div class="table-container" style="width: 1100px; ">
+
+      <div class="container" style="padding-left:120px">
+        <% unless current_user.cleaner? %>
+          <%= form_tag(services_path, method: :get) do %>
+            <div style = "width:200px; float:left">
+            <%= select_tag :search_status ,options_for_select(Service.statuses), prompt: "Select status" %></div>
+            <%= submit_tag ("Buscar"), class: 'button is-link is-small'%>
+          <% end %>
+          <br>
+        <% end %>
+      </div>
+                                                                             
+      <%= render 'services/admin' if current_user.user_type == 'admin'%>
+      <%= render 'services/client' if current_user.user_type == 'client'%>
+      <%= render 'services/cleaner' if current_user.user_type == 'cleaner'%>
+      <br>
+      <% if current_user.client?%>
+        <%= link_to 'Ordenar servicios', new_order_path, class: "button is-info is-rounded" unless current_user.cleaner?%>
+      <% end %>
+      <br>
+      <br>
+       <%= link_to 'Regresar', root_path,class:"button"%>
+    </div>
+  </div>
+</div>

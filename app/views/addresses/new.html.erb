@@ -1,0 +1,16 @@
+<% provide(:title, "Nueva dirección") %>
+<% provide(:title_header, "Nueva dirección") %>
+
+<%= render 'shared/header_dinamic' %>
+
+<div class="section">                                                           
+  <div class="container" align="center">                                        
+    <div class="columns is-centered">                                           
+      <div class="column is-4">
+        <%= render 'form', address: @address %>
+
+        <%= link_to 'Regresar', addresses_path, class: "button" %>
+      </div>
+    </div>
+  </div>
+</div>

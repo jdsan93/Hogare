@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Fecha:</strong>
+  <%= @service.date %>
+</p>
+
+<p>
+  <strong>Estado:</strong>
+  <%= @service.status %>
+</p>
+
+<p>
+  <strong>Direccion:</strong>
+  <%= @service.address.body %>
+</p>
+
+<p>
+  <strong>Cliente:</strong>
+  <%= @service.location.client.name %>
+</p>
+
+<p>
+  <strong>Trabajadora:</strong>
+  <%= @service.cleaner.name %>
+</p>
+
+<p>
+  <strong>Precio:</strong>
+  <%= @service.price %>
+</p>
+
+<%= link_to 'Editar', edit_service_path(@service) %> |
+<%= link_to 'Regresar', services_path %> |
+<%= link_to 'Cancelar', cancel_service_cancel_path(@service), data: { confirm: 'Seguro desea cancelar este servicio?' } %>

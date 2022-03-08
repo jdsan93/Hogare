@@ -1,0 +1,64 @@
+<% provide(:title, "Usuarios") %>
+<% provide(:title_header, "Usuarios") %>
+
+<%= render 'shared/header_dinamic' %>
+
+<div class="hero-body">
+  <div class="container" align="center">
+    <div class="table-container" style="width: 1010px; padding-left:50px">
+      <div class="container" style="padding-left:150px">
+        <%= form_tag(the_users_path, method: :get) do %>
+          <div style = "width:200px; float:left">
+            <%= text_field_tag :search_email, params[:search_email], placeholder:"filter by email", class:"input is-link is-small" %>
+          </div>
+          <%= submit_tag ("Search"), class: 'button is-link is-small'%>
+        <% end %>
+      </div>
+      <br>
+      <div style="width:500px"><%= paginate @the_users, window: 2 %></div>
+      <br>
+
+      <table class="table is-narrow is-hoverable -row-hover-background-color primary" >
+        <thead>
+          <tr>
+            <th title="name">Nombre</th>
+            <th title="phone">Telefono</th>
+            <th title="email">Corre electronico</th>
+            <th title="type">Clase</th>
+            <th title="action">Acciones</th>
+          </tr>
+        </thead>
+        <% @the_users.each do |u| %>
+          <tbody>
+            <tr>
+              <% if u.user_type == "client" %>
+                <% client = Client.find_by(user_id: u.id) %>
+                <td><%= client.name %></td>
+                <td><%= client.phone %></td>
+              <% elsif u.user_type == "cleaner" %>
+                <% cleaner = Cleaner.find_by(user_id: u.id) %>
+                <td><%= cleaner.name %></td>
+                <td><%= cleaner.phone %></td>
+              <% else %>
+                <% admin = Admin.find_by(user_id: u.id) %>
+                <td><%= admin.name %></td>
+                <td><%= admin.phone %></td>
+              <% end %>
+              <td><%= u.email %></td>
+              <td><%= u.user_type %></td>
+              <td>
+                <% if u.user_type == "cleaner" %>
+                  <% cleaner = Cleaner.find_by(user_id: u.id) %>
+                  <%=  link_to 'Editar fechas', edit_date_cleaner_path(cleaner.id), class: "button is-small" %>
+                <% end %>
+                <%= link_to 'Editar', edit_the_user_path(u.id), class: "button is-small" %>
+                <%= link_to 'Eliminar', the_user_path(u.id), method: :delete, data: { confirm: '¿Estas seguro?' } , class: "button is-small" %>
+              </td>
+            </tr>
+          </tbody>
+        <% end %>
+      </table>
+      <%= link_to "Registrar usuario", new_the_user_path, class: "button is-info is-rounded" %>
+    </div>
+  </div>
+</div>

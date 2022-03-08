@@ -1,0 +1,15 @@
+<% content_for :header do %>                                                  
+  <section class="hero is-info">                                              
+    <div class="hero-body" align="center">                                    
+      <div class="container">                                                 
+        <h1 class="title">                                                    
+          <%= yield(:title_header) %>                                                   
+        </h1>                                                                 
+        <h2>                                                                  
+          <%= render 'layouts/flash' %>                                       
+        </h2>                                                                 
+      </div>                                                                  
+    </div>                                                                    
+  </section>                                                                  
+<% end %>
+<br>

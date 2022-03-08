@@ -1,0 +1,34 @@
+<div style="width:500px"><%= paginate @services %></div>            
+ <br> 
+ 
+ <table class="table is-narrow is-hoverable -row-hover-background-color primary">
+   <thead>
+     <tr>
+      <th>Fecha de servicio</th>
+      <th>Cliente</th>
+      <th>Email</th>
+      <th>Telefono</th>
+      <th>Direccion</th>
+      <th>Estado</th>
+     </tr>
+   </thead>
+
+  <tbody>
+    <% @services.each do |service| %>
+      <tr>
+        <td><%= service.date %></td>
+        <% if service.client.nil?%> 
+          <td>eliminado</td>
+          <td>eliminado</td>
+          <td>eliminado</td>
+        <%else%>
+          <td><%= service.client.name %></td>
+          <td><%= service.client.user.email %></td>
+          <td><%= service.client.phone %></td>
+        <%end%>
+        <td><%= service.address.body %></td>
+        <td><%= service.status %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

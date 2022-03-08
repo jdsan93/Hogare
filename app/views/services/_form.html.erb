@@ -1,0 +1,48 @@
+ <table>
+  <thead>
+    <tr>
+      <th>Fecha</th>
+      <th>Dirección</th>
+    </tr>
+  </thead>
+    <%= simple_form_for(@service) do |f| %>
+
+    <div class="form-inputs">
+      <div><strong>Defina los servicios</strong></div>
+      <tbody>
+        <% @dates.each_with_index do |date, i| %>
+          <tr>
+            <td> <input name = "date_<%= "#{i}" %>" value = <%= date %>></input></td>
+            
+            <td>
+              <div class="field">
+               <div class="control">
+                    <%= select_tag "address_#{i}", options_for_select(@addresses.keys)%>
+                </div>
+              </div>
+            </td>
+
+
+            <td><%= hidden_field_tag :price,@price%></td>
+            <td><%= hidden_field_tag :order_id,@order_id%></td>
+            <td><%= hidden_field_tag :num_dates,i+1%></td>
+
+          </tr>
+        <% end %>
+      </tbody>
+  </table>
+  <br>
+  <p>El valor total de sus servicios es de <strong> <%= number_to_currency(@price)%> <strong>
+ <br>
+ <br>
+   <div class="form-actions">
+     <%= f.button :submit, class:"button is-info is-medium"  %>
+   </div>
+   <br>
+   <br>
+ <% end %>
+
+
+
+
+

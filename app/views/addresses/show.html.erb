@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Direccion:</strong>
+  <%= @address.body %>
+</p>
+
+<p>
+  <strong>Usuario:</strong>
+  <%= @address.client.name %>
+</p>
+
+<%= link_to 'Editar', edit_address_path(@address) %> |
+<%= link_to 'Regresar', addresses_path %>
